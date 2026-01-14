@@ -9,6 +9,7 @@ const Home = () => {
     const [search, setSearch] = useState('');
     const [loading, setLoading] = useState(true);
     const { user } = useAuth();
+console.log(import.meta.env.VITE_API_URL)
 
     const fetchGigs = async (query = '') => {
         try {
@@ -74,7 +75,7 @@ const Home = () => {
             {loading ? (
                 <div className="text-center text-gray-500 mt-20">Loading gigs...</div>
             ) : gigs.length === 0 ? (
-                <div className="text-center text-gray-500 mt-20">No gigs found. Try adjusting your search.</div>
+                <div className="text-center text-gray-500 mt-20">No gigs found.</div>
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {gigs.map((gig) => (
