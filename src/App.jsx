@@ -18,7 +18,7 @@ const AuthCheck = ({ children }) => {
         checkUser();
     }, []);
 
-    if (loading) return <div className="min-h-screen bg-gray-900 flex items-center justify-center text-white">Loading Auth...</div>;
+    if (loading) return <div className="min-h-screen bg-gray-900 flex items-center justify-center text-white">Loading...</div>;
     return children;
 };
 
