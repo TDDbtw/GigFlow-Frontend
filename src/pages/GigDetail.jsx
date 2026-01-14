@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import api from '../api/axios';
 import { useAuth } from '../context/AuthContext';
 import { toast } from 'react-toastify';
@@ -40,13 +40,20 @@ const GigDetail = () => {
         fetchGigAndBids();
     }, [id, user]);
 
-    const handlePlaceBid = async (e) => {
-        e.preventDefault();
-        try {
-            const { data } = await api.post('/bids', {
-                gigId: id,
-                message: bidMessage,
-                price: bidPrice
+  const navigate = useNavigate();
+
+  const handlePlaceBid = async (e) => {
+    e.preventDefault();
+    if (!user) {
+      toast.error('You must be logged in to place a bid. Please sign in or create an account.');
+      navigate('/login'); 
+      return;
+    }
+    try {
+      const { data } = await api.post('/bids', {
+        gigId: id,
+        message: bidMessage,
+        price: bidPrice
             });
             toast.success('Bid placed successfully!');
             setMyBid(data); // Show the bid immediately
