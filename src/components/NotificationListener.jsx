@@ -4,8 +4,15 @@ import { useAuth } from '../context/AuthContext';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const socket = io('http://localhost:5000', {
-    autoConnect: false,
+const SOCKET_URL = import.meta.env.VITE_API_URL
+    ? import.meta.env.VITE_API_URL.replace('/api', '')
+    : 'http://localhost:5000';
+
+const socket = io(SOCKET_URL, {
+    withCredentials: true,
+    transports: ['polling', 'websocket'], // Robustness
+});
+autoConnect: false,
     withCredentials: true
 });
 
